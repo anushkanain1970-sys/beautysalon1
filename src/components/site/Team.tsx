@@ -1,10 +1,10 @@
 import { Instagram } from "lucide-react";
 
 const team = [
-  { img: "/photos/ali-pazani-3w14X-Yxffk-unsplash.jpg", name: "Camille Aury", role: "Founder · Master Colorist" },
-  { img: "/photos/ayo-ogunseinde-UqT55tGBqzI-unsplash.jpg", name: "Inès Rivière", role: "Lead Bridal Artist" },
-  { img: "/photos/kadarius-seegars-Mxy5gokl8mE-unsplash.jpg", name: "Élise Marchand", role: "Head Esthetician" },
-  { img: "/photos/vince-mariel-conlu-ajDUxve6clA-unsplash.jpg", name: "Mira Tanaka", role: "Nail Couturier" },
+  { img: "/photos/ali-pazani-3w14X-Yxffk-unsplash.webp", name: "Camille Aury", role: "Founder · Master Colorist" },
+  { img: "/photos/ayo-ogunseinde-UqT55tGBqzI-unsplash.webp", name: "Inès Rivière", role: "Lead Bridal Artist" },
+  { img: "/photos/kadarius-seegars-Mxy5gokl8mE-unsplash.webp", name: "Élise Marchand", role: "Head Esthetician" },
+  { img: "/photos/vince-mariel-conlu-ajDUxve6clA-unsplash.webp", name: "Mira Tanaka", role: "Nail Couturier" },
 ];
 
 export function Team() {

@@ -87,7 +87,7 @@ float snoise(vec3 v) {
 float fbm(vec3 p) {
   float f = 0.0;
   float amp = 0.5;
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 3; i++) {
     f += amp * snoise(p);
     p *= 2.03;
     amp *= 0.48;
@@ -247,7 +247,7 @@ export function HeroBackground3D() {
   const resize = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const dpr = Math.min(window.devicePixelRatio, 2);
+    const dpr = Math.min(window.devicePixelRatio, 1);
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
     if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
@@ -280,9 +280,14 @@ export function HeroBackground3D() {
       rafRef.current = requestAnimationFrame(tick);
     };
 
-    rafRef.current = requestAnimationFrame(tick);
+    // Defer initialization to allow the main thread and video to load smoothly
+    const timeoutId = setTimeout(() => {
+      startRef.current = performance.now();
+      rafRef.current = requestAnimationFrame(tick);
+    }, 500);
 
     return () => {
+      clearTimeout(timeoutId);
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("resize", resize);
     };

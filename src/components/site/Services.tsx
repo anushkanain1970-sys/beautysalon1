@@ -6,7 +6,7 @@ const services = [
     title: "Couture Hair Styling",
     desc: "Editorial cuts, blowouts and silk-finish treatments tailored to your couture moment.",
     price: "from €120",
-    img: "/photos/lola-azizada-Bv8pYo9RJno-unsplash.jpg",
+    img: "/photos/ali-pazani-3w14X-Yxffk-unsplash.jpg",
   },
   {
     n: "02",

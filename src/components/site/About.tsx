@@ -1,6 +1,6 @@
-const imgAboutMain = "/photos/amir-seilsepour-VLJV46hPLSM-unsplash.jpg";
-const imgAboutCollage1 = "/photos/taylor-beach-kwu9Ny5dKOE-unsplash.jpg";
-const imgAboutCollage2 = "/photos/dynamic-wang-NRFH-dCQ5i8-unsplash.jpg";
+const imgAboutMain = "/photos/amir-seilsepour-VLJV46hPLSM-unsplash.webp";
+const imgAboutCollage1 = "/photos/taylor-beach-kwu9Ny5dKOE-unsplash.webp";
+const imgAboutCollage2 = "/photos/dynamic-wang-NRFH-dCQ5i8-unsplash.webp";
 
 export function About() {
   return (
