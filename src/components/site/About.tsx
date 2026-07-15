@@ -1,85 +1,68 @@
-const imgAboutMain = "/photos/amir-seilsepour-VLJV46hPLSM-unsplash.webp";
-const imgAboutCollage1 = "/photos/taylor-beach-kwu9Ny5dKOE-unsplash.webp";
-const imgAboutCollage2 = "/photos/dynamic-wang-NRFH-dCQ5i8-unsplash.webp";
+import { motion } from "framer-motion";
 
 export function About() {
   return (
-    <section id="about" className="relative px-6 py-28 lg:px-10 lg:py-40">
-      <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-2 lg:gap-24">
-        {/* Gallery collage */}
-        <div className="relative">
-          <div className="grid grid-cols-6 grid-rows-6 gap-4 h-[640px]">
-            <div className="col-span-4 row-span-6 zoom-img rounded-[36px] shadow-luxe">
-              <img
-                src={imgAboutMain}
-                alt="Luxury salon interior at Maison Lumière"
-                loading="lazy"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="col-span-2 row-span-3 zoom-img rounded-[28px] shadow-soft">
-              <img
-                src={imgAboutCollage1}
-                alt="Elegant salon dressing chairs"
-                loading="lazy"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="col-span-2 row-span-3 zoom-img rounded-[28px] shadow-soft">
-              <img
-                src={imgAboutCollage2}
-                alt="Signature product scents display"
-                loading="lazy"
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
+    <section className="relative py-32 bg-blush-ivory overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24 items-center">
+          
+          {/* Left: Imagery Grid */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="relative h-[500px] lg:h-[650px] rounded-[2.5rem] overflow-hidden shadow-luxe"
+          >
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover"
+            >
+              <source src="/media/Luxury_flower_sculpture_unfoldin.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-rose-gold/10 mix-blend-multiply pointer-events-none" />
+          </motion.div>
 
-          {/* decorative gold ring */}
-          <div
-            aria-hidden
-            className="absolute -bottom-10 -left-10 h-44 w-44 rounded-full border border-warm-gold/40 animate-float"
-          />
-        </div>
+          {/* Right: Storytelling Copy */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="flex flex-col justify-center"
+          >
+            <span className="eyebrow inline-block mb-6">OUR PHILOSOPHY</span>
+            <h2 className="text-display text-4xl lg:text-5xl text-rich-charcoal leading-[1.1] mb-8">
+              Patience, Mastery, <br />
+              <span className="italic font-light text-deep-mauve">and the Art of Listening.</span>
+            </h2>
+            
+            <div className="space-y-6 text-[15px] lg:text-[16px] leading-relaxed text-soft-mauve-gray font-sans">
+              <p>
+                Beauty Elegance was founded on a singular premise: that true luxury lies in the unseen details. It is found in the unhurried consultation, the precise calibration of color, and the meticulous attention to the health of your hair and skin. 
+              </p>
+              <p>
+                We reject the rushed, transactional nature of modern salons. Instead, our atelier operates as a sanctuary of calm. Our master artisans are trained to listen deeply before they act, blending technical mastery with an intuitive understanding of your personal aesthetic.
+              </p>
+              <p>
+                Whether you seek a subtle refinement or a complete ceremonial transformation, every ritual is executed with patience, precision, and an unwavering commitment to elegance.
+              </p>
+            </div>
 
-        {/* Text */}
-        <div>
-          <div className="eyebrow">Our maison</div>
-          <h2 className="mt-4 text-display text-[clamp(2.2rem,4.6vw,3.8rem)] text-charcoal">
-            A sanctuary <span className="italic text-gold-gradient">crafted</span>{" "}
-            for those who appreciate the quiet art of beauty.
-          </h2>
-          <span className="divider-gold mt-8" />
-          <p className="mt-8 text-[1.02rem] leading-relaxed text-soft-gray">
-            Founded in 2013 by master colorist Camille Aury, Maison Lumière was
-            born from a singular obsession: to elevate every beauty experience
-            into something deeply personal, considered, and timeless.
-          </p>
-          <p className="mt-5 text-[1.02rem] leading-relaxed text-soft-gray">
-            Behind our champagne doors, an atelier of certified artisans curates
-            bespoke rituals — from couture color and bridal artistry to advanced
-            skincare and ceremonial spa treatments — using the world&rsquo;s
-            most refined botanical formulations.
-          </p>
-
-          <div className="mt-10 grid grid-cols-2 gap-6">
-            {[
-              { k: "Maison since", v: "2013" },
-              { k: "Master artisans", v: "18" },
-              { k: "Signature rituals", v: "42" },
-              { k: "Private suites", v: "9" },
-            ].map((s) => (
-              <div
-                key={s.k}
-                className="rounded-2xl border border-warm-gold/20 bg-white/60 p-5 backdrop-blur"
-              >
-                <div className="eyebrow !text-[10px]">{s.k}</div>
-                <div className="mt-1 text-display text-3xl text-charcoal">
-                  {s.v}
-                </div>
+            <div className="mt-12 flex items-center gap-6">
+              <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-rose-gold/30">
+                <img src="/photos/nataliya-melnychuk-tnWjbdPmk1M-unsplash.jpg" alt="Founder Portrait" className="w-full h-full object-cover" />
               </div>
-            ))}
-          </div>
+              <div>
+                <div className="font-display italic text-2xl text-rich-charcoal">Elise Laurent</div>
+                <div className="text-[11px] tracking-widest uppercase text-rose-gold mt-1">Founder & Creative Director</div>
+              </div>
+            </div>
+          </motion.div>
+
         </div>
       </div>
     </section>

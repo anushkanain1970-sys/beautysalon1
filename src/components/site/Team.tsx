@@ -1,65 +1,89 @@
-import { Instagram } from "lucide-react";
+import { motion } from "framer-motion";
 
-const team = [
-  { img: "/photos/ali-pazani-3w14X-Yxffk-unsplash.webp", name: "Camille Aury", role: "Founder · Master Colorist" },
-  { img: "/photos/ayo-ogunseinde-UqT55tGBqzI-unsplash.webp", name: "Inès Rivière", role: "Lead Bridal Artist" },
-  { img: "/photos/kadarius-seegars-Mxy5gokl8mE-unsplash.webp", name: "Élise Marchand", role: "Head Esthetician" },
-  { img: "/photos/vince-mariel-conlu-ajDUxve6clA-unsplash.webp", name: "Mira Tanaka", role: "Nail Couturier" },
+const staff = [
+  {
+    name: "Clara Dubois",
+    role: "Master Colourist",
+    image: "/photos/jessie-dee-dabrowski-www-jessiedee-net-W6cwaL7PMSw-unsplash.jpg",
+  },
+  {
+    name: "Sophie Laurent",
+    role: "Bridal Specialist",
+    image: "/photos/lola-azizada-Bv8pYo9RJno-unsplash.jpg",
+  },
+  {
+    name: "Aurelie Martin",
+    role: "Skin Therapist",
+    image: "/photos/lola-azizada-I3y-aJ4DWng-unsplash.jpg",
+  },
+  {
+    name: "Chloe Moreau",
+    role: "Senior Stylist",
+    image: "/photos/sara-dabaghian-w6fsJW8LBD4-unsplash.jpg",
+  },
 ];
 
 export function Team() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 30 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }
+    },
+  };
+
   return (
-    <section
-      id="team"
-      className="relative px-6 py-28 lg:px-10 lg:py-40"
-      style={{ background: "linear-gradient(180deg, var(--beige), var(--ivory))" }}
-    >
-      <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
-          <div className="max-w-2xl">
-            <div className="eyebrow">The atelier</div>
-            <h2 className="mt-4 text-display text-[clamp(2.2rem,4.6vw,3.8rem)] text-charcoal">
-              Artisans devoted to the{" "}
-              <span className="italic text-gold-gradient">craft of beauty</span>.
+    <section className="relative py-32 bg-soft-pearl-pink overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <span className="eyebrow inline-block mb-4">OUR ARTISANS</span>
+            <h2 className="text-display text-4xl lg:text-5xl text-rich-charcoal">
+              The Hands Behind <br />
+              <span className="italic font-light text-deep-mauve">The Elegance</span>
             </h2>
-          </div>
-          <p className="max-w-md text-soft-gray">
-            Trained in Paris, Tokyo and Milan — our team brings decades of
-            editorial, bridal and clinical expertise to your private suite.
-          </p>
+          </motion.div>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {team.map((p) => (
-            <article
-              key={p.name}
-              className="lift-card group relative overflow-hidden rounded-[28px] border border-warm-gold/20 bg-white"
-            >
-              <div className="zoom-img relative aspect-[4/5]">
-                <img
-                  src={p.img}
-                  alt={p.name}
-                  loading="lazy"
-                  className="h-full w-full object-cover"
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {staff.map((member, i) => (
+            <motion.div key={i} variants={item} className="group cursor-pointer">
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-soft mb-6 transition-all duration-700 group-hover:-translate-y-2 group-hover:shadow-luxe">
+                <img 
+                  src={member.image} 
+                  alt={member.name} 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 filter saturate-[0.9] group-hover:saturate-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/45 via-transparent to-transparent" />
-                <a
-                  href="#"
-                  aria-label={`${p.name} Instagram`}
-                  className="absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full glass text-charcoal opacity-0 transition-all duration-500 group-hover:opacity-100"
-                >
-                  <Instagram className="h-4 w-4" />
-                </a>
               </div>
-              <div className="p-6">
-                <h3 className="text-display text-xl text-charcoal">{p.name}</h3>
-                <p className="mt-1 text-[11px] tracking-[0.22em] uppercase text-warm-gold">
-                  {p.role}
-                </p>
+              <div className="text-center">
+                <h3 className="text-display text-2xl text-rich-charcoal mb-1">{member.name}</h3>
+                <p className="text-[11px] tracking-widest uppercase text-soft-mauve-gray">{member.role}</p>
               </div>
-            </article>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,121 +1,119 @@
-import { ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { Scissors, Droplet, Sparkles, Sprout, Heart, Gem } from "lucide-react";
 
 const services = [
   {
-    n: "01",
-    title: "Couture Hair Styling",
-    desc: "Editorial cuts, blowouts and silk-finish treatments tailored to your couture moment.",
-    price: "from €120",
-    img: "/photos/ali-pazani-3w14X-Yxffk-unsplash.jpg",
+    title: "Hair Styling",
+    description: "Couture cuts and transformative styling tailored to your bone structure.",
+    icon: Scissors,
   },
   {
-    n: "02",
-    title: "Maison Color",
-    desc: "Hand-painted balayage, soft tonal glosses and signature champagne dimensional color.",
-    price: "from €240",
-    img: "/photos/lola-azizada-I3y-aJ4DWng-unsplash.jpg",
+    title: "Hair Colour",
+    description: "Bespoke balayage and dimensional color using premium low-toxin pigments.",
+    icon: Droplet,
   },
   {
-    n: "03",
-    title: "Bridal Atelier",
-    desc: "Full bridal artistry — hair, makeup, trial sessions and a private suite for your party.",
-    price: "from €680",
-    img: "/photos/jessica-felicio-QS9ZX5UnS14-unsplash.jpg",
+    title: "Bridal Makeup",
+    description: "Enduring, camera-ready elegance crafted for your most significant day.",
+    icon: Sparkles,
   },
   {
-    n: "04",
-    title: "Advanced Skincare",
-    desc: "Diagnostic-led facials with cold cryo, LED therapy and pure botanical actives.",
-    price: "from €180",
-    img: "/photos/nataliya-melnychuk-tnWjbdPmk1M-unsplash.jpg",
+    title: "Skincare",
+    description: "Advanced clinical treatments combined with holistic relaxation.",
+    icon: Sprout,
   },
   {
-    n: "05",
-    title: "Spa Rituals",
-    desc: "Hour-long ceremonial body rituals — gold leaf, oud, rose and ancient hammam.",
-    price: "from €220",
-    img: "/photos/hanen-souhail-DLWs1tZvsdY-unsplash.jpg",
+    title: "Facials",
+    description: "Ceremonial facial rituals designed to lift, sculpt, and restore radiance.",
+    icon: Heart,
   },
   {
-    n: "06",
-    title: "Nail Couture",
-    desc: "Pure-mineral manicures, sculpted gel finishes and bespoke wedding nail art.",
-    price: "from €75",
-    img: "/photos/yash-mevawala-QkFz4YmMpT0-unsplash.jpg",
+    title: "Nail Services",
+    description: "Immaculate manicures and pedicures in a strictly hygienic environment.",
+    icon: Gem,
   },
 ];
 
 export function Services() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut" }
+    },
+  };
+
   return (
-    <section
-      id="services"
-      className="relative overflow-hidden px-6 py-28 lg:px-10 lg:py-40"
-      style={{ background: "linear-gradient(180deg, var(--pearl), var(--ivory))" }}
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[820px] -translate-x-1/2 rounded-full opacity-50 blur-3xl"
-        style={{ background: "radial-gradient(closest-side, var(--champagne), transparent)" }}
-      />
+    <section className="relative py-32 bg-blush-ivory overflow-hidden">
+      {/* Decorative Serum Droplets */}
+      <motion.div 
+        animate={{ y: [0, -20, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-20 -left-10 w-64 h-64 opacity-20 blur-sm pointer-events-none mix-blend-multiply"
+      >
+        <img src="/media/Floating_beauty_serum_droplets.jpeg" alt="" className="w-full h-full object-cover rounded-full" />
+      </motion.div>
+      <motion.div 
+        animate={{ y: [0, 30, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute bottom-20 -right-20 w-96 h-96 opacity-15 blur-[2px] pointer-events-none mix-blend-multiply"
+      >
+        <img src="/media/Floating_beauty_serum_droplets.jpeg" alt="" className="w-full h-full object-cover rounded-full" />
+      </motion.div>
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
-          <div className="max-w-2xl">
-            <div className="eyebrow">The services</div>
-            <h2 className="mt-4 text-display text-[clamp(2.2rem,4.6vw,3.8rem)] text-charcoal">
-              Signature rituals,{" "}
-              <span className="italic text-gold-gradient">crafted</span> by hand.
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 relative z-10">
+        
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <span className="eyebrow inline-block mb-4">SIGNATURE OFFERINGS</span>
+            <h2 className="text-display text-4xl lg:text-5xl text-rich-charcoal">
+              The <span className="italic font-light text-deep-mauve">Menu</span>
             </h2>
-          </div>
-          <p className="max-w-md text-soft-gray">
-            Every service is delivered in a private suite, with a curated
-            playlist, a champagne pour, and undivided attention from your
-            personal artisan.
-          </p>
+          </motion.div>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <article
-              key={s.title}
-              className="lift-card group relative overflow-hidden rounded-[32px] border border-warm-gold/15 bg-white"
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {services.map((service, i) => (
+            <motion.div 
+              key={i} 
+              variants={item} 
+              className="group bg-white/60 backdrop-blur-sm border border-champagne-pink/50 rounded-[2rem] p-8 lg:p-10 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-luxe hover:border-rose-gold/40 flex flex-col items-center text-center cursor-pointer"
             >
-              <div className="zoom-img relative aspect-[4/5]">
-                <img
-                  src={s.img}
-                  alt={s.title}
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/55 via-charcoal/0 to-transparent" />
-                <span className="absolute left-5 top-5 rounded-full glass px-3 py-1 text-[10px] tracking-[0.28em] uppercase text-charcoal">
-                  {s.n}
-                </span>
-                <span className="absolute right-5 top-5 rounded-full bg-white/85 px-3 py-1 text-[10px] tracking-[0.22em] uppercase text-warm-gold">
-                  {s.price}
-                </span>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-champagne-pink to-rose-gold flex items-center justify-center mb-6 shadow-sm">
+                <service.icon className="w-7 h-7 text-white" strokeWidth={1.5} />
               </div>
-
-              <div className="flex items-start justify-between gap-4 p-7">
-                <div>
-                  <h3 className="text-display text-2xl text-charcoal">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-soft-gray">
-                    {s.desc}
-                  </p>
-                </div>
-                <a
-                  href="#booking"
-                  aria-label={`Book ${s.title}`}
-                  className="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full border border-warm-gold/40 text-warm-gold transition-all duration-500 group-hover:bg-rose-gradient group-hover:text-white group-hover:border-transparent"
-                >
-                  <ArrowUpRight className="h-4 w-4" />
-                </a>
-              </div>
-            </article>
+              <h3 className="text-display text-2xl text-rich-charcoal mb-4">{service.title}</h3>
+              <p className="text-[15px] leading-relaxed text-soft-mauve-gray font-sans">
+                {service.description}
+              </p>
+              
+              <div className="mt-8 w-0 h-[1px] bg-rose-gold transition-all duration-500 group-hover:w-16" />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+        
       </div>
     </section>
   );

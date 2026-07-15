@@ -1,83 +1,106 @@
-import { Star, Quote } from "lucide-react";
+import { motion } from "framer-motion";
 
-const reviews = [
+const testimonials = [
   {
-    name: "Isabelle Moreau",
-    role: "Editor, Vogue Paris",
-    text: "Maison Lumière is the rare beauty house where every detail — the music, the light, the touch — feels considered. My colorist Camille is simply unmatched.",
+    quote: "An absolute revelation. The team at Beauty Elegance understood exactly what I needed for my wedding day. The precision, the calm atmosphere, and the final result were all flawless.",
+    name: "Eleanor Vance",
+    role: "Bridal Client",
+    initials: "EV",
   },
   {
-    name: "Aria Chen",
-    role: "Founder, Aria Atelier",
-    text: "I&rsquo;ve traveled to spas across Tokyo, Milan, and New York. Nothing comes close to the calm and craft I experience here. It feels like coming home.",
+    quote: "I have visited luxury salons across the globe, and none compare to the meticulous care and artistry here. My skin has never looked more radiant. A true sanctuary.",
+    name: "Isabella Rossi",
+    role: "Skincare Client",
+    initials: "IR",
   },
   {
-    name: "Sofia Bennett",
-    role: "Bride, May 2025",
-    text: "They turned my wedding morning into a ceremony. Champagne, soft music, and a glow I&rsquo;d never seen in myself. I cried before I even saw the dress.",
-  },
-  {
-    name: "Lena Hofmann",
-    role: "Creative Director",
-    text: "Beyond beautiful work — the warmth here is real. Maison Lumière has become my monthly ritual, my pause, my reset.",
+    quote: "Every appointment feels like a retreat. The attention to detail and the sheer mastery of the stylists ensure I walk out feeling transformed every single time.",
+    name: "Madeleine Chen",
+    role: "Regular Client",
+    initials: "MC",
   },
 ];
 
 export function Testimonials() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 30 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }
+    },
+  };
+
   return (
-    <section className="relative overflow-hidden px-6 py-28 lg:px-10 lg:py-40">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 50% 30%, color-mix(in oklab, var(--champagne) 30%, transparent), transparent)",
-        }}
-      />
-      <div className="relative mx-auto max-w-7xl">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="eyebrow">Whispers of our guests</div>
-          <h2 className="mt-4 text-display text-[clamp(2.2rem,4.6vw,3.8rem)] text-charcoal">
-            Loved by the women who{" "}
-            <span className="italic text-gold-gradient">return</span>.
-          </h2>
+    <section className="relative py-32 bg-gradient-to-b from-soft-pearl-pink to-blush-ivory overflow-hidden">
+      
+      {/* Decorative background pearls */}
+      <div className="absolute top-1/4 left-10 w-32 h-32 rounded-full bg-white/40 blur-3xl" />
+      <div className="absolute bottom-1/4 right-10 w-48 h-48 rounded-full bg-rose-gold/10 blur-3xl" />
+
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 relative z-10">
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <span className="eyebrow inline-block mb-4">CLIENT EXPERIENCES</span>
+            <h2 className="text-display text-4xl lg:text-5xl text-rich-charcoal leading-[1.1]">
+              Words of <span className="italic font-light text-deep-mauve">Praise</span>
+            </h2>
+          </motion.div>
         </div>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-2">
-          {reviews.map((r) => (
-            <figure
-              key={r.name}
-              className="glass-gold lift-card relative rounded-[32px] p-10"
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid gap-8 lg:grid-cols-3"
+        >
+          {testimonials.map((testimonial, i) => (
+            <motion.div 
+              key={i} 
+              variants={item} 
+              className="glass rounded-3xl p-10 lg:p-12 flex flex-col justify-between"
             >
-              <Quote className="absolute right-8 top-8 h-10 w-10 text-warm-gold/40" />
-              <div className="flex items-center gap-1 text-warm-gold">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-warm-gold" />
-                ))}
+              <div>
+                <div className="flex gap-1 mb-8">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span key={star} className="text-rose-gold text-lg">★</span>
+                  ))}
+                </div>
+                <p className="font-display italic text-lg leading-relaxed text-soft-mauve-gray mb-10">
+                  "{testimonial.quote}"
+                </p>
               </div>
-              <blockquote
-                className="mt-5 text-display text-[1.45rem] leading-snug text-charcoal"
-                dangerouslySetInnerHTML={{ __html: `&ldquo;${r.text}&rdquo;` }}
-              />
-              <figcaption className="mt-6 flex items-center gap-4">
-                <div className="grid h-11 w-11 place-items-center rounded-full bg-rose-gradient text-sm text-white">
-                  {r.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
+              
+              <div className="flex items-center gap-4 border-t border-champagne-pink/30 pt-6">
+                <div className="w-12 h-12 rounded-full bg-rose-gradient flex items-center justify-center text-white text-sm font-semibold tracking-wider">
+                  {testimonial.initials}
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-charcoal">
-                    {r.name}
-                  </div>
-                  <div className="text-[11px] tracking-[0.22em] uppercase text-soft-gray">
-                    {r.role}
+                  <div className="font-sans font-medium text-rich-charcoal text-sm">{testimonial.name}</div>
+                  <div className="text-[11px] uppercase tracking-widest text-soft-mauve-gray mt-1">
+                    {testimonial.role}
                   </div>
                 </div>
-              </figcaption>
-            </figure>
+              </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
