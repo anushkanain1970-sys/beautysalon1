@@ -26,18 +26,9 @@ export default defineConfig({
       server: { entry: "server" },
     }),
     nitro({
-      preset: "node-server",
-      output: {
-        dir: "dist",
-        serverDir: "dist/server",
-        publicDir: "dist/client",
-      },
-      rollupConfig: {
-        output: {
-          entryFileNames: "server.js",
-        },
-      },
+      preset: "netlify",
     }),
     react(),
   ],
 });
+
