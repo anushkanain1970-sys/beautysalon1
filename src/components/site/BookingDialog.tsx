@@ -1,8 +1,7 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { z } from "zod";
 import { CalendarHeart, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
@@ -26,25 +25,16 @@ interface ServiceOpt { id: string; name: string }
 export function BookingDialog({ trigger }: { trigger: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [services, setServices] = useState<ServiceOpt[]>([]);
+  const services: ServiceOpt[] = [
+    { id: "bridal-artistry", name: "Bridal Artistry" },
+    { id: "evening-glamour", name: "Evening Glamour" },
+    { id: "signature-facial", name: "Signature Facial" },
+    { id: "hair-styling", name: "Hair Styling" },
+  ];
   const [form, setForm] = useState({
     name: "", email: "", phone: "", service_id: "",
     preferred_date: "", preferred_time: "", message: "",
   });
-
-  useEffect(() => {
-    if (!open) return;
-    supabase.from("services").select("id,name").eq("is_active", true).order("sort_order")
-      .then(({ data }) => setServices((data as ServiceOpt[]) ?? []));
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) {
-        setForm((f) => ({
-          ...f,
-          email: f.email || data.user!.email || "",
-        }));
-      }
-    });
-  }, [open]);
 
   const update = (k: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [k]: v }));
 
@@ -55,37 +45,20 @@ export function BookingDialog({ trigger }: { trigger: ReactNode }) {
       toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
       return;
     }
-    setLoading(true);
-    const { data: { user } } = await supabase.auth.getUser();
-    const { data: inserted, error } = await supabase.from("bookings").insert({
-      user_id: user?.id ?? null,
-      name: parsed.data.name,
-      email: parsed.data.email,
-      phone: parsed.data.phone || null,
-      service_id: parsed.data.service_id || null,
-      preferred_date: parsed.data.preferred_date || null,
-      preferred_time: parsed.data.preferred_time || null,
-      message: parsed.data.message || null,
-    }).select("id").maybeSingle();
+    
+    const messageText = `Hello! I would like to make a reservation:
+Name: ${parsed.data.name}
+Email: ${parsed.data.email}
+Phone: ${parsed.data.phone || 'N/A'}
+Service: ${services.find(s => s.id === parsed.data.service_id)?.name || 'N/A'}
+Date: ${parsed.data.preferred_date || 'TBD'}
+Time: ${parsed.data.preferred_time || 'TBD'}
+Notes: ${parsed.data.message || 'None'}`;
 
-    if (error) {
-      setLoading(false);
-      console.error(error);
-      toast.error("Something went wrong. Please try again.");
-      return;
-    }
+    const waLink = `https://wa.me/1234567890?text=${encodeURIComponent(messageText)}`;
+    window.open(waLink, "_blank");
 
-    // Fire-and-forget notification (emails + WhatsApp)
-    if (inserted?.id) {
-      fetch("/api/public/booking-notify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ booking_id: inserted.id }),
-      }).catch(() => {});
-    }
-
-    setLoading(false);
-    toast.success("Reservation received — we'll be in touch within 24 hours.");
+    toast.success("Redirecting to WhatsApp to complete your reservation.");
     setForm({ name: "", email: "", phone: "", service_id: "", preferred_date: "", preferred_time: "", message: "" });
     setOpen(false);
   };

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { supabase } from "@/integrations/supabase/client";
 
 const links = [
   { to: "/", label: "Home" },
@@ -11,17 +10,13 @@ const links = [
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 24);
     on();
     window.addEventListener("scroll", on, { passive: true });
-    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setSignedIn(!!s));
     return () => {
       window.removeEventListener("scroll", on);
-      sub.subscription.unsubscribe();
     };
   }, []);
 
@@ -51,12 +46,6 @@ export function Nav() {
             ))}
           </nav>
           <div className="flex items-center gap-6">
-            <Link
-              to={signedIn ? "/account" : "/auth"}
-              className="hidden sm:inline text-[12px] uppercase tracking-[0.18em] text-rich-charcoal/70 hover:text-rich-charcoal transition-colors"
-            >
-              {signedIn ? "My account" : "Sign in"}
-            </Link>
             <Link to="/booking" className="btn-primary !py-3 !px-7 !text-[12px]">Book Appointment</Link>
           </div>
         </div>

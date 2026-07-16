@@ -11,16 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as ServicesRouteImport } from './routes/services'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as BookingRouteImport } from './routes/booking'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
-import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
-import { Route as ApiPublicBookingStatusEmailRouteImport } from './routes/api/public/booking-status-email'
-import { Route as ApiPublicBookingNotifyRouteImport } from './routes/api/public/booking-notify'
 
 const TestimonialsRoute = TestimonialsRouteImport.update({
   id: '/testimonials',
@@ -32,19 +25,9 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BookingRoute = BookingRouteImport.update({
   id: '/booking',
   path: '/booking',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -52,132 +35,48 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
-  id: '/account',
-  path: '/account',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const ApiPublicBookingStatusEmailRoute =
-  ApiPublicBookingStatusEmailRouteImport.update({
-    id: '/api/public/booking-status-email',
-    path: '/api/public/booking-status-email',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicBookingNotifyRoute = ApiPublicBookingNotifyRouteImport.update({
-  id: '/api/public/booking-notify',
-  path: '/api/public/booking-notify',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/testimonials': typeof TestimonialsRoute
-  '/account': typeof AuthenticatedAccountRoute
-  '/admin': typeof AuthenticatedAdminRoute
-  '/api/public/booking-notify': typeof ApiPublicBookingNotifyRoute
-  '/api/public/booking-status-email': typeof ApiPublicBookingStatusEmailRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/testimonials': typeof TestimonialsRoute
-  '/account': typeof AuthenticatedAccountRoute
-  '/admin': typeof AuthenticatedAdminRoute
-  '/api/public/booking-notify': typeof ApiPublicBookingNotifyRoute
-  '/api/public/booking-status-email': typeof ApiPublicBookingStatusEmailRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/testimonials': typeof TestimonialsRoute
-  '/_authenticated/account': typeof AuthenticatedAccountRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
-  '/api/public/booking-notify': typeof ApiPublicBookingNotifyRoute
-  '/api/public/booking-status-email': typeof ApiPublicBookingStatusEmailRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/auth'
-    | '/booking'
-    | '/reset-password'
-    | '/services'
-    | '/testimonials'
-    | '/account'
-    | '/admin'
-    | '/api/public/booking-notify'
-    | '/api/public/booking-status-email'
+  fullPaths: '/' | '/about' | '/booking' | '/services' | '/testimonials'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/auth'
-    | '/booking'
-    | '/reset-password'
-    | '/services'
-    | '/testimonials'
-    | '/account'
-    | '/admin'
-    | '/api/public/booking-notify'
-    | '/api/public/booking-status-email'
-  id:
-    | '__root__'
-    | '/'
-    | '/_authenticated'
-    | '/about'
-    | '/auth'
-    | '/booking'
-    | '/reset-password'
-    | '/services'
-    | '/testimonials'
-    | '/_authenticated/account'
-    | '/_authenticated/admin'
-    | '/api/public/booking-notify'
-    | '/api/public/booking-status-email'
+  to: '/' | '/about' | '/booking' | '/services' | '/testimonials'
+  id: '__root__' | '/' | '/about' | '/booking' | '/services' | '/testimonials'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
-  AuthRoute: typeof AuthRoute
   BookingRoute: typeof BookingRoute
-  ResetPasswordRoute: typeof ResetPasswordRoute
   ServicesRoute: typeof ServicesRoute
   TestimonialsRoute: typeof TestimonialsRoute
-  ApiPublicBookingNotifyRoute: typeof ApiPublicBookingNotifyRoute
-  ApiPublicBookingStatusEmailRoute: typeof ApiPublicBookingStatusEmailRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -196,25 +95,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/booking': {
       id: '/booking'
       path: '/booking'
       fullPath: '/booking'
       preLoaderRoute: typeof BookingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -224,13 +109,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -238,61 +116,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/account': {
-      id: '/_authenticated/account'
-      path: '/account'
-      fullPath: '/account'
-      preLoaderRoute: typeof AuthenticatedAccountRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/api/public/booking-status-email': {
-      id: '/api/public/booking-status-email'
-      path: '/api/public/booking-status-email'
-      fullPath: '/api/public/booking-status-email'
-      preLoaderRoute: typeof ApiPublicBookingStatusEmailRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/booking-notify': {
-      id: '/api/public/booking-notify'
-      path: '/api/public/booking-notify'
-      fullPath: '/api/public/booking-notify'
-      preLoaderRoute: typeof ApiPublicBookingNotifyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
-}
-
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAccountRoute: AuthenticatedAccountRoute,
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
-}
-
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
-  AuthRoute: AuthRoute,
   BookingRoute: BookingRoute,
-  ResetPasswordRoute: ResetPasswordRoute,
   ServicesRoute: ServicesRoute,
   TestimonialsRoute: TestimonialsRoute,
-  ApiPublicBookingNotifyRoute: ApiPublicBookingNotifyRoute,
-  ApiPublicBookingStatusEmailRoute: ApiPublicBookingStatusEmailRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
